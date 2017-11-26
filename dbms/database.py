@@ -2,6 +2,7 @@
 # Лучина ИУ7-11
 import pickle
 data = 'None'
+
 loop = True
 while loop:
     print('{:_^40}'.format('MENU'))
@@ -101,6 +102,29 @@ while loop:
                     print('Некорректный ввод. Попробуйте ещё раз.')
 
     elif menu == '5':
+        if data == 'None':
+            print('Сначала откройте нужную базу данных.')
+        else:
+            n = len(list(data.values())[0])
+            search = int(input('По какому количеству параметров осуществлять поиск?'))
+            pars = []
+            for i in range(search):
+                par = input('Введите параметр: ')
+                if not (par in list(data.keys())):
+                    print('В базе данных нет такого параметра.')
+                pars.append(par)
+            values = []
+            for p in pars:
+                value = input('%s: '%p)
+                values.append(value)
+            print(pars, values)
+            k = len(pars)
+            #search = [[pars[i],values[i]] for i in range(k)]
+            #print(search)
+            for h in range(k):
+                for i in range(n):
+                    if data[pars[h]][i] == values[h]:
+                        print(data[pars[h]][i], 'equal', values[h])
 
     # elif menu == '6':
     # else:
