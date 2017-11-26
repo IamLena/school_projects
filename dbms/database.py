@@ -100,7 +100,8 @@ while loop:
                 else:
                     print('Некорректный ввод. Попробуйте ещё раз.')
 
-    # elif menu == '5':
+    elif menu == '5':
+
     # elif menu == '6':
     # else:
 
@@ -109,7 +110,7 @@ while loop:
     if YesNo == 'да':
         pass
     elif YesNo == 'нет':
-        print('СОХРАНИТЬ')
+        
         loop = False
     else:
         pass
