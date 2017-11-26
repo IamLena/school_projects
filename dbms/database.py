@@ -8,7 +8,7 @@ while loop:
     print('1 - создать базу данных')
     print('2 - открыть базу данных')
     print('3 - просмотреть все элементы базы данных')
-    print('4 - добавить новый элемент в базу данных')
+    print('4 - добавить новые элементы в базу данных')
     print('5 - найти элемент базы данных')
     print('6 - удалить элемент из базы данных')
     menu = input('Введите пунк меню: ')
@@ -39,7 +39,6 @@ while loop:
                     loop11 = False
                 else:
                     print('Некорректный ввод. Попробуйте ещё раз.')
-        print(NewData)
         p = pickle.dumps(NewData)
         file = input('Назовите базу данных: ')
         file += '.mybd'
@@ -78,7 +77,29 @@ while loop:
                     print('{:15}'.format(e), end = '')
                 print()
             
-    # elif menu == '4':
+    elif menu == '4':
+        if data == 'None':
+            print('Сначала откройте нужную базу данных.')
+        else:
+            for i in data:
+                value = input('%s: '%i)
+                data[i].append(value)
+        loop1 = True
+        while loop1:
+            loop11 = True
+            while loop11:
+                YesNo = input('Добавить еще запись?(да/нет) ')
+                if YesNo == 'да':
+                    for i in data:
+                        value = input('%s: '%i)
+                        data[i].append(value)
+                    loop11 = False
+                elif YesNo == 'нет':
+                    loop1 = False
+                    loop11 = False
+                else:
+                    print('Некорректный ввод. Попробуйте ещё раз.')
+
     # elif menu == '5':
     # elif menu == '6':
     # else:
