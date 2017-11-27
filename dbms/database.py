@@ -105,68 +105,51 @@ while loop:
         if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
+            k = len(list((data.values()))[0])
+            def search (DATA, par, value):
+                global k
+                count = 0
+                SearchData = dict.fromkeys(list(DATA.keys()))
+                for key in SearchData:
+                    SearchData[key] = []
+                for n in range(k):
+                    if DATA[par][n] == value:
+                        for i in data:
+                            SearchData[i].append(data[i][n])
+                            count = 1
+                if count == 0:
+                        print('Такого элемента нет в базе данных.')
+                        return None
+                else:
+                    YesNo = input('Добавить еще параметр поиска? ')
+                    if YesNo == 'нет':
+                        return SearchData
+                    elif YesNo == 'да':
+                        par2 = input('Введите название параметра:')
+                        if not (par2 in list(data.keys())):
+                            print('Данного параметра нет в базе данных')
+                            return SearchData
+                        else:
+                            value2 = input('%s: '%par2)
+                            search(SearchData,par2,value2)
+                    else:
+                        print('Некорректный ввод.')
+                        return SearchData
+
             par1 = input('Введите название параметра: ')
             if not (par1 in list(data.keys())):
                 print('Данного параметра нет в базе данных')
             else:
-                YesNo = input('Добавить еще один параметр? ')
-                if YesNo == 'да':
-                    par2 = input('Введите название второго параметра: ')
-                    value1 = input('%s: '%par1)
-                    value2 = input('%s: '%par2)
-                    k = len(list((data.values()))[0])
-                    count = 0
-                    for n in range(k):
-                        if data[par1][n] == value1 and data[par2][n] == value2:
-                            for i in data:
-                                print('{:15}'.format(i), end = '')
-                            print()
-                            for i in data:
-                                print('{:15}'.format(data[i][n]), end = '')
-                            count = 1
-                    if count == 0:
-                        print('Такого элемента нет в базе данных.')
-                if YesNo == 'нет'
-                    
-                        
-
-
-            # search = int(input('По какому количеству параметров осуществлять поиск?'))
-            # pars = []
-            # for i in range(search):
-            #     par = input('Введите параметр: ')
-            #     if not (par in list(data.keys())):
-            #         print('В базе данных нет такого параметра.')
-            #     pars.append(par)
-            # values = []
-            # for p in pars:
-            #     value = input('%s: '%p)
-            #     values.append(value)
-            # print(pars, values)
-            # ID = -1
-            # n = len(list(data.values())[0])
-
-            # for i in range(n):
-            #     if data[pars[0]][i] == values[0]:
-            #         if search > 1:
-            #             if data[pars[1]][i] == values[1]:
-            #                 ID = i        
-            #         else:
-            #             ID = i
-
-            # if ID != -1:
-            #     N = len(data)
-            #     for d in data:
-            #         print('{:15}'.format(d), end = '')
-            #     print()
-            #     print('\u2500'*15*N)
-            #     for o in data:
-            #         e = data[o][ID]
-            #         print('{:15}'.format(e), end = '')  
-            # else:
-            #     print('Элемент не найден')
-
-                
+                value1 = input('%s: '%par1)
+                s = search(data, par1, value1)
+                if s != None:
+                    for i in s:
+                        print('{:15}'.format(i), end = '')
+                    print()
+                    for i in s:
+                        for v in range(len(list(s.values())[0])):
+                            print('{:15}'.format(s[i][v]), end = '')
+                    print()
 
     # elif menu == '6':
     # else:
