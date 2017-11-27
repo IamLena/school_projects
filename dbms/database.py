@@ -1,7 +1,7 @@
 # Лабораторная работа на базу данных
 # Лучина ИУ7-11
 import pickle
-data = 'None'
+data = {}
 
 loop = True
 while loop:
@@ -63,7 +63,7 @@ while loop:
                 print('Файл с данным именем не найден.')
 
     elif menu == '3':
-        if data == 'None':
+        if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
             N = len(data)
@@ -79,7 +79,7 @@ while loop:
                 print()
             
     elif menu == '4':
-        if data == 'None':
+        if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
             for i in data:
@@ -102,10 +102,9 @@ while loop:
                     print('Некорректный ввод. Попробуйте ещё раз.')
 
     elif menu == '5':
-        if data == 'None':
+        if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
-            n = len(list(data.values())[0])
             search = int(input('По какому количеству параметров осуществлять поиск?'))
             pars = []
             for i in range(search):
@@ -118,19 +117,39 @@ while loop:
                 value = input('%s: '%p)
                 values.append(value)
             print(pars, values)
-            k = len(pars)
-            #search = [[pars[i],values[i]] for i in range(k)]
-            #print(search)
-            for h in range(k):
-                for i in range(n):
-                    if data[pars[h]][i] == values[h]:
-                        print(data[pars[h]][i], 'equal', values[h])
+            ID = -1
+            n = len(list(data.values())[0])
+            for i in range(n):
+                print(data[pars[0]][i], values[0])
+                if data[pars[0]][i] == values[0]:
+                    print(data[pars[1]][i], values[1])
+                    if data[pars[1]][i] == values[1]:
+                        ID = i
+                print(ID)
+
+            if ID != -1:
+                N = len(data)
+                for d in data:
+                    print('{:15}'.format(d), end = '')
+                print()
+                print('\u2500'*15*N)
+                for o in data:
+                    e = data[o][i]
+                    print('{:15}'.format(e), end = '')  
+            else:
+                print('Элемент не найден')
+            # match = 0
+            # for h in range(k):
+            #     for i in range(n):
+            #         if data[pars[h]][i] == values[h]:
+            #             print(data[pars[h]][i], 'equal', values[h])
+                
 
     # elif menu == '6':
     # else:
 
     print()
-    YesNo = input('Продолжить редактирование? (да/нет) ')
+    YesNo = input('Продолжить работу с базой данной? (да/нет) ')
     if YesNo == 'да':
         pass
     elif YesNo == 'нет':
