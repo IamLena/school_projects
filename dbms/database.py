@@ -109,15 +109,26 @@ while loop:
             if not (par1 in list(data.keys())):
                 print('Данного параметра нет в базе данных')
             else:
-                value = input('Введите значение: ')
-                k = len(list((data.values()))[0])
-                for n in range(k):
-                    if data[par1][n] == value:
-                        for i in data:
-                            print('{:15}'.format(i), end = '')
-                        print()
-                        for i in data:
-                            print('{:15}'.format(data[i][n]), end = '')
+                YesNo = input('Добавить еще один параметр? ')
+                if YesNo == 'да':
+                    par2 = input('Введите название второго параметра: ')
+                    value1 = input('%s: '%par1)
+                    value2 = input('%s: '%par2)
+                    k = len(list((data.values()))[0])
+                    count = 0
+                    for n in range(k):
+                        if data[par1][n] == value1 and data[par2][n] == value2:
+                            for i in data:
+                                print('{:15}'.format(i), end = '')
+                            print()
+                            for i in data:
+                                print('{:15}'.format(data[i][n]), end = '')
+                            count = 1
+                    if count == 0:
+                        print('Такого элемента нет в базе данных.')
+                if YesNo == 'нет'
+                    
+                        
 
 
             # search = int(input('По какому количеству параметров осуществлять поиск?'))
