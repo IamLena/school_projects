@@ -105,9 +105,8 @@ while loop:
         if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
-            k = len(list((data.values()))[0])
             def search (DATA, par, value):
-                global k
+                k = len(list((data.values()))[0])
                 count = 0
                 SearchData = dict.fromkeys(list(DATA.keys()))
                 for key in SearchData:
@@ -146,10 +145,10 @@ while loop:
                     for i in s:
                         print('{:15}'.format(i), end = '')
                     print()
-                    for i in s:
-                        for v in range(len(list(s.values())[0])):
+                    for v in range(len(list(s.values())[0])):
+                        for i in s:
                             print('{:15}'.format(s[i][v]), end = '')
-                    print()
+                        print()
 
     # elif menu == '6':
     # else:
