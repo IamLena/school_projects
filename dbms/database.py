@@ -105,44 +105,56 @@ while loop:
         if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
-            search = int(input('По какому количеству параметров осуществлять поиск?'))
-            pars = []
-            for i in range(search):
-                par = input('Введите параметр: ')
-                if not (par in list(data.keys())):
-                    print('В базе данных нет такого параметра.')
-                pars.append(par)
-            values = []
-            for p in pars:
-                value = input('%s: '%p)
-                values.append(value)
-            print(pars, values)
-            ID = -1
-            n = len(list(data.values())[0])
-            for i in range(n):
-                print(data[pars[0]][i], values[0])
-                if data[pars[0]][i] == values[0]:
-                    print(data[pars[1]][i], values[1])
-                    if data[pars[1]][i] == values[1]:
-                        ID = i
-                print(ID)
-
-            if ID != -1:
-                N = len(data)
-                for d in data:
-                    print('{:15}'.format(d), end = '')
-                print()
-                print('\u2500'*15*N)
-                for o in data:
-                    e = data[o][i]
-                    print('{:15}'.format(e), end = '')  
+            par1 = input('Введите название параметра: ')
+            if not (par1 in list(data.keys())):
+                print('Данного параметра нет в базе данных')
             else:
-                print('Элемент не найден')
-            # match = 0
-            # for h in range(k):
-            #     for i in range(n):
-            #         if data[pars[h]][i] == values[h]:
-            #             print(data[pars[h]][i], 'equal', values[h])
+                value = input('Введите значение: ')
+                k = len(list((data.values()))[0])
+                for n in range(k):
+                    if data[par1][n] == value:
+                        for i in data:
+                            print('{:15}'.format(i), end = '')
+                        print()
+                        for i in data:
+                            print('{:15}'.format(data[i][n]), end = '')
+
+
+            # search = int(input('По какому количеству параметров осуществлять поиск?'))
+            # pars = []
+            # for i in range(search):
+            #     par = input('Введите параметр: ')
+            #     if not (par in list(data.keys())):
+            #         print('В базе данных нет такого параметра.')
+            #     pars.append(par)
+            # values = []
+            # for p in pars:
+            #     value = input('%s: '%p)
+            #     values.append(value)
+            # print(pars, values)
+            # ID = -1
+            # n = len(list(data.values())[0])
+
+            # for i in range(n):
+            #     if data[pars[0]][i] == values[0]:
+            #         if search > 1:
+            #             if data[pars[1]][i] == values[1]:
+            #                 ID = i        
+            #         else:
+            #             ID = i
+
+            # if ID != -1:
+            #     N = len(data)
+            #     for d in data:
+            #         print('{:15}'.format(d), end = '')
+            #     print()
+            #     print('\u2500'*15*N)
+            #     for o in data:
+            #         e = data[o][ID]
+            #         print('{:15}'.format(e), end = '')  
+            # else:
+            #     print('Элемент не найден')
+
                 
 
     # elif menu == '6':
