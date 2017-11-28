@@ -3,6 +3,37 @@
 import pickle
 data = {}
 
+def search (DATA, par, value):
+    k = len(list((DATA.values()))[0])
+    count = 0
+    SearchData = dict.fromkeys(list(DATA.keys()))
+    for key in SearchData:
+        SearchData[key] = []
+    for n in range(k):
+        if DATA[par][n] == value:
+            for i in DATA:
+                SearchData[i].append(DATA[i][n])
+                count = 1
+    if count == 0:
+            print('Такого элемента нет в базе данных.')
+            return None
+    else:
+        loop5 = True
+        while loop5:
+            YesNo = input('Добавить другой(дополнительный) параметр поиска? ')
+            if YesNo == 'нет':
+                loop5 = False
+                return SearchData
+            elif YesNo == 'да':
+                par2 = input('Введите название параметра:')
+                if not (par2 in list(data.keys())):
+                    print('Данного параметра нет в базе данных')
+                else:
+                    value2 = input('%s: '%par2)
+                    search(SearchData,par2,value2)
+            else:
+                print('Некорректный ввод.')
+
 loop = True
 while loop:
     print('{:_^40}'.format('MENU'))
@@ -17,47 +48,47 @@ while loop:
 
     if menu == '1':
         columns = int(input('Введите количество параметров: '))
-        keys = []
-        for i in range(columns):
-            key = input('Введите название %d-го парметра: '%(i+1))
-            keys.append(key)
-        NewData = dict.fromkeys(keys)
-        for i in NewData:
-                NewData[i] = []
-        print(NewData)
-        loop1 = True
-        while loop1:
-            loop11 = True
-            while loop11:
-                YesNo = input('Добавить запись?(да/нет) ')
-                if YesNo == 'да':
-                    for i in NewData:
-                        value = input('%s: '%i)
-                        NewData[i].append(value)
-                    loop11 = False
-                elif YesNo == 'нет':
-                    loop1 = False
-                    loop11 = False
-                else:
-                    print('Некорректный ввод. Попробуйте ещё раз.')
-        p = pickle.dumps(NewData)
-        file = input('Назовите базу данных: ')
-        file += '.mybd'
-        with open(file, 'wb') as f:
-            f.write(p)
-        print('База Данных создана. Имя файла - ', file)
+        if columns <=0:
+            print('Создание такой базы данных невозможно.')
+        else:
+            keys = []
+            for i in range(columns):
+                key = input('Введите название %d-го парметра: '%(i+1))
+                keys.append(key)
+            NewData = dict.fromkeys(keys)
+            for i in NewData:
+                    NewData[i] = []
+            print(NewData)
+            loop1 = True
+            while loop1:
+                loop11 = True
+                while loop11:
+                    YesNo = input('Добавить запись?(да/нет) ')
+                    if YesNo == 'да':
+                        for i in NewData:
+                            value = input('%s: '%i)
+                            NewData[i].append(value)
+                        loop11 = False
+                    elif YesNo == 'нет':
+                        loop1 = False
+                        loop11 = False
+                    else:
+                        print('Некорректный ввод. Попробуйте ещё раз.')
+            p = pickle.dumps(NewData)
+            file = input('Назовите базу данных: ')
+            file += '.mybd'
+            with open(file, 'wb') as f:
+                f.write(p)
+            print('База Данных создана. Имя файла - ', file)
 
     elif menu == '2':
         file = input('Введите имя файла, в котором хранится база данных: ')
-        if file == '':
-            file = 'luch.mybd'
         if (file[-5:]) != '.mybd':
             print('Не то разрешение файла')
         else:
             try:
-                f = open(file,'br')
-                data = pickle.loads(f.read())
-                f.close()
+                with open(file,'br') as f:
+                    data = pickle.loads(f.read())
                 print('Файл открыт.')
             except FileNotFoundError:
                 print('Файл с данным именем не найден.')
@@ -66,10 +97,10 @@ while loop:
         if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
-            N = len(data)
             for i in data:
                 print('{:15}'.format(i), end = '')
             print()
+            N = len(data)
             print('\u2500'*15*N)
             n = len(list(data.values())[0])
             for j in range(n):
@@ -105,36 +136,6 @@ while loop:
         if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
-            def search (DATA, par, value):
-                k = len(list((data.values()))[0])
-                count = 0
-                SearchData = dict.fromkeys(list(DATA.keys()))
-                for key in SearchData:
-                    SearchData[key] = []
-                for n in range(k):
-                    if DATA[par][n] == value:
-                        for i in data:
-                            SearchData[i].append(data[i][n])
-                            count = 1
-                if count == 0:
-                        print('Такого элемента нет в базе данных.')
-                        return None
-                else:
-                    YesNo = input('Добавить еще параметр поиска? ')
-                    if YesNo == 'нет':
-                        return SearchData
-                    elif YesNo == 'да':
-                        par2 = input('Введите название параметра:')
-                        if not (par2 in list(data.keys())):
-                            print('Данного параметра нет в базе данных')
-                            return SearchData
-                        else:
-                            value2 = input('%s: '%par2)
-                            search(SearchData,par2,value2)
-                    else:
-                        print('Некорректный ввод.')
-                        return SearchData
-
             par1 = input('Введите название параметра: ')
             if not (par1 in list(data.keys())):
                 print('Данного параметра нет в базе данных')
@@ -150,7 +151,10 @@ while loop:
                             print('{:15}'.format(s[i][v]), end = '')
                         print()
 
-    # elif menu == '6':
+    elif menu == '6':
+        if len(data) == 0:
+            print('Сначал нужно открыть')
+
     # else:
 
     print()
