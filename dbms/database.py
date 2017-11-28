@@ -3,6 +3,16 @@
 import pickle
 data = {}
 
+def printdb (DATA):
+    for i in DATA:
+        print('{:15}'.format(i), end = '')
+    print()
+    N = len(DATA)
+    print('\u2500'*15*N)
+    for v in range(len(list(DATA.values())[0])):
+        for i in DATA:
+            print('{:15}'.format(DATA[i][v]), end = '')
+        print()
 def search (DATA, par, value):
     k = len(list((DATA.values()))[0])
     count = 0
@@ -58,7 +68,6 @@ while loop:
             NewData = dict.fromkeys(keys)
             for i in NewData:
                     NewData[i] = []
-            print(NewData)
             loop1 = True
             while loop1:
                 loop11 = True
@@ -74,6 +83,7 @@ while loop:
                         loop11 = False
                     else:
                         print('Некорректный ввод. Попробуйте ещё раз.')
+            printdb(NewData)
             p = pickle.dumps(NewData)
             file = input('Назовите базу данных: ')
             file += '.mybd'
@@ -97,17 +107,7 @@ while loop:
         if len(data) == 0:
             print('Сначала откройте нужную базу данных.')
         else:
-            for i in data:
-                print('{:15}'.format(i), end = '')
-            print()
-            N = len(data)
-            print('\u2500'*15*N)
-            n = len(list(data.values())[0])
-            for j in range(n):
-                for i in data:
-                    e = data[i][j]
-                    print('{:15}'.format(e), end = '')
-                print()
+            printdb(data)
             
     elif menu == '4':
         if len(data) == 0:
@@ -116,21 +116,22 @@ while loop:
             for i in data:
                 value = input('%s: '%i)
                 data[i].append(value)
-        loop1 = True
-        while loop1:
-            loop11 = True
-            while loop11:
-                YesNo = input('Добавить еще запись?(да/нет) ')
-                if YesNo == 'да':
-                    for i in data:
-                        value = input('%s: '%i)
-                        data[i].append(value)
-                    loop11 = False
-                elif YesNo == 'нет':
-                    loop1 = False
-                    loop11 = False
-                else:
-                    print('Некорректный ввод. Попробуйте ещё раз.')
+            loop1 = True
+            while loop1:
+                loop11 = True
+                while loop11:
+                    YesNo = input('Добавить еще запись?(да/нет) ')
+                    if YesNo == 'да':
+                        for i in data:
+                            value = input('%s: '%i)
+                            data[i].append(value)
+                        loop11 = False
+                    elif YesNo == 'нет':
+                        loop1 = False
+                        loop11 = False
+                    else:
+                        print('Некорректный ввод. Попробуйте ещё раз.')
+            prindb(data)
 
     elif menu == '5':
         if len(data) == 0:
@@ -143,17 +144,20 @@ while loop:
                 value1 = input('%s: '%par1)
                 s = search(data, par1, value1)
                 if s != None:
-                    for i in s:
-                        print('{:15}'.format(i), end = '')
-                    print()
-                    for v in range(len(list(s.values())[0])):
-                        for i in s:
-                            print('{:15}'.format(s[i][v]), end = '')
-                        print()
+                    printdb(data)
 
     elif menu == '6':
         if len(data) == 0:
-            print('Сначал нужно открыть')
+            print('Сначал откройте нужную базу данных.')
+        else:
+            par1 = input('Введите параметр поиска элемента для удаления: ')
+            if not (par1 in list(data.keys())):
+                print('Данного параметра нет в базе данных')
+            else:
+                value1 = input('%s: '%par1)
+                s = search(data, par1, value1)
+                printdb(data)
+            
 
     # else:
 
