@@ -27,11 +27,14 @@ def search (DATA, par, value):
         YesNo = input('Добавить другой (дополнительный) параметр поиска? ')
         if YesNo == 'нет':
             print('SEARCHING')
-            return SearchData
+            print(SearchData)
+            SearchData = 'done'
+            return 'done'
         elif YesNo == 'да':
             par2 = input('Введите название параметра:')
             if not (par2 in list(data.keys())):
                 print('Данного параметра нет в базе данных')
+                return 'ERROR'
             else:
                 value2 = input('%s: '%par2)
                 search(SearchData,par2,value2)
@@ -40,8 +43,8 @@ def search (DATA, par, value):
             return 'ERROR'
 
 data = {'Name':['Bob','Bob','Kate','Sam'],'Age':['3','40','5', '10'],'Sex':['male','male','female','male']}
-par1 = input()
-value1 = input()
+par1 = input('par: ')
+value1 = input('val: ')
 
 #search(data, par1,value1)
 print(search(data, par1, value1))
