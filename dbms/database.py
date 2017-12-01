@@ -13,7 +13,9 @@ def printdb (DATA):
         for i in DATA:
             print('{:15}'.format(DATA[i][v]), end = '')
         print()
+
 def search (DATA, par, value):
+    printdb(DATA)
     k = len(list((DATA.values()))[0])
     count = 0
     SearchData = dict.fromkeys(list(DATA.keys()))
@@ -28,21 +30,20 @@ def search (DATA, par, value):
             print('Такого элемента нет в базе данных.')
             return None
     else:
-        loop5 = True
-        while loop5:
-            YesNo = input('Добавить другой(дополнительный) параметр поиска? ')
-            if YesNo == 'нет':
-                loop5 = False
-                return SearchData
-            elif YesNo == 'да':
-                par2 = input('Введите название параметра:')
-                if not (par2 in list(data.keys())):
-                    print('Данного параметра нет в базе данных')
-                else:
-                    value2 = input('%s: '%par2)
-                    search(SearchData,par2,value2)
+        YesNo = input('Добавить другой (дополнительный) параметр поиска? ')
+        if YesNo == 'нет':
+            return SearchData
+        elif YesNo == 'да':
+            par2 = input('Введите название параметра:')
+            if not (par2 in list(data.keys())):
+                print('Данного параметра нет в базе данных')
             else:
-                print('Некорректный ввод.')
+                value2 = input('%s: '%par2)
+                search(SearchData,par2,value2)
+        else:
+            print('Некорректный ввод.')
+        printdb(SearchData)
+
 
 loop = True
 while loop:
@@ -131,7 +132,7 @@ while loop:
                         loop11 = False
                     else:
                         print('Некорректный ввод. Попробуйте ещё раз.')
-            prindb(data)
+            printdb(data)
 
     elif menu == '5':
         if len(data) == 0:
@@ -143,8 +144,7 @@ while loop:
             else:
                 value1 = input('%s: '%par1)
                 s = search(data, par1, value1)
-                if s != None:
-                    printdb(data)
+                printdb(s)
 
     elif menu == '6':
         if len(data) == 0:
@@ -156,7 +156,7 @@ while loop:
             else:
                 value1 = input('%s: '%par1)
                 s = search(data, par1, value1)
-                printdb(data)
+                printdb(s)
             
 
     # else:

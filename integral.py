@@ -1,6 +1,6 @@
-import math as m
+import math
 def func(arg):
-    return arg
+    return arg**2
 
 try:
     a, b = map(float, input('a and b: ').split())
