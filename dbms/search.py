@@ -21,8 +21,8 @@ def search (DATA, par, value):
                 SearchData[i].append(DATA[i][n])
                 count = 1
     if count == 0:
-            print('Такого элемента нет в базе данных.')
-            return 'ERROR'
+        print('Такого элемента нет в базе данных.')
+        return 'ERROR'
     else:
         YesNo = input('Добавить другой (дополнительный) параметр поиска? ')
         if YesNo == 'нет':
