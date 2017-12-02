@@ -95,7 +95,7 @@ while loop:
     elif menu == '2':
         file = input('Введите имя файла, в котором хранится база данных: ')
         if (file[-5:]) != '.mybd':
-            print('Не то разрешение файла')
+            print('Не то расширение файла')
         else:
             try:
                 with open(file,'br') as f:

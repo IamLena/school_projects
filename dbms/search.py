@@ -28,8 +28,8 @@ def search (DATA, par, value):
         if YesNo == 'нет':
             print('SEARCHING')
             print(SearchData)
-            SearchData = 'done'
-            return 'done'
+
+            return SearchData
         elif YesNo == 'да':
             par2 = input('Введите название параметра:')
             if not (par2 in list(data.keys())):
@@ -37,7 +37,8 @@ def search (DATA, par, value):
                 return 'ERROR'
             else:
                 value2 = input('%s: '%par2)
-                search(SearchData,par2,value2)
+                s = search(SearchData,par2,value2)
+                return s
         else:
             print('Некорректный ввод.')
             return 'ERROR'

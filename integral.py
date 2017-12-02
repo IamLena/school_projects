@@ -48,7 +48,7 @@ def Integral_2 (n):
     if a>b:
         a, b = b, a
     x = a
-    while x<=b:
+    while x<b:
         f1 = func(x)
         f2 = func(x+abstep/2)
         f3 = func(x+abstep)
