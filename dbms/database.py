@@ -15,7 +15,6 @@ def printdb (DATA):
         print()
 
 def search (DATA, par, value):
-    printdb(DATA)
     k = len(list((DATA.values()))[0])
     count = 0
     SearchData = dict.fromkeys(list(DATA.keys()))
@@ -27,22 +26,26 @@ def search (DATA, par, value):
                 SearchData[i].append(DATA[i][n])
                 count = 1
     if count == 0:
-            print('Такого элемента нет в базе данных.')
-            return None
+        print('Такого элемента нет в базе данных.')
+        return 'ERROR'
     else:
         YesNo = input('Добавить другой (дополнительный) параметр поиска? ')
         if YesNo == 'нет':
+            print('SEARCHING')
+            print(SearchData)
             return SearchData
         elif YesNo == 'да':
             par2 = input('Введите название параметра:')
             if not (par2 in list(data.keys())):
                 print('Данного параметра нет в базе данных')
+                return 'ERROR'
             else:
                 value2 = input('%s: '%par2)
-                search(SearchData,par2,value2)
+                s = search(SearchData,par2,value2)
+                return s
         else:
             print('Некорректный ввод.')
-        printdb(SearchData)
+            return 'ERROR'
 
 
 loop = True
@@ -143,8 +146,8 @@ while loop:
                 print('Данного параметра нет в базе данных')
             else:
                 value1 = input('%s: '%par1)
-                s = search(data, par1, value1)
-                printdb(s)
+                S = search(data, par1, value1)
+                printdb(S)
 
     elif menu == '6':
         if len(data) == 0:
@@ -155,18 +158,33 @@ while loop:
                 print('Данного параметра нет в базе данных')
             else:
                 value1 = input('%s: '%par1)
-                s = search(data, par1, value1)
-                printdb(s)
-            
-
-    # else:
+                S = search(data, par1, value1)
+                printdb(S)
+            YesNo = input('Удалить данные элементы? ')
+            if YesNo == 'да':
+                
+    else:
+        print('Некорректный ввод. Попробуйте еще раз.')
 
     print()
-    YesNo = input('Продолжить работу с базой данной? (да/нет) ')
+    YesNo = input('Продолжить работу с базой данной, вернуться к меню? (да/нет) ')
     if YesNo == 'да':
         pass
     elif YesNo == 'нет':
-        
+        save = input('сохранить в новый файл(1)/ заменить данный(2)/ не сохранять(3)? ')
+        if save == '1':
+            file = input('назовите файл: ')
+            file += '.mybd'
+            content = pickle.dumps(data)
+            with open(file, 'wb') as f:
+                f.write(content)
+            print('База данных сохранена в файле ', file)
+        elif save == '2':
+
+        elif save == '3':
+            pass
+        else:
+            print('Некорректный ввод')
         loop = False
     else:
-        pass
+        print('Некорректный ввод')
