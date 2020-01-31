@@ -1,0 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sastantua.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalecto <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/31 21:01:21 by nalecto           #+#    #+#             */
+/*   Updated: 2020/01/31 21:35:22 by nalecto          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+
+void ft_putchar(char c)
+{
+    write(1, &c, 1);
+}
+
+void print_empty(int n)
+{
+    while (n != 0)
+    {
+        ft_putchar(' ');
+        n--;
+    }
+}
+
+void print_asterisk(int n)
+{
+    while (n != 0)
+    {
+        ft_putchar('*');
+        n--;
+    }
+}
+
+void print_bar(int n)
+{
+    while(n != 0)
+    {
+        ft_putchar('|');
+        n--;
+    }
+}
+
+void sastantua(int size)
+{
+    int f = size;
+    int allh = 0;
+    int all = -5;
+    int half = -3;
+    while (f > 0)
+    {
+        allh += 2 + f;
+        all += 6 + 2 * (f + 1);
+        half += f + 4;
+        f--;
+    }
+    printf("%d %d\n", allh, half);
+    int looph = 3;
+    int asterisk_num = 1;
+    while (size > 0)
+    {
+        int h = looph;
+        while (h > 0)
+        {
+            print_empty(half);
+            ft_putchar('/');
+            //if (size == 1 && h <= looph - 2)
+            //{
+            //    print_asterisk(asterisk_num / 2);
+            //}
+            print_asterisk(asterisk_num);
+            ft_putchar('\\');
+            asterisk_num += 2;
+            h--;
+            half--;
+            ft_putchar('\n');
+        }
+        asterisk_num += 4;
+        looph++;
+        half -= 2;
+        size--;
+    }
+}
+
+int main(void)
+{
+    int size = 5;
+    sastantua(size);
+}
